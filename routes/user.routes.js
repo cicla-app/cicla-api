@@ -1,0 +1,13 @@
+const express = require('express');
+const router = express.Router();
+const usersController = require('../controllers/user.controller');
+const secure = require('../middlewares/secure.mid');
+const constants = require('../constants');
+
+router.get('/', secure.checkRole(constants.roles.admin), usersController.list)
+router.post('/', secure.deleteRoleParam, usersController.create)
+router.get('/:id', secure.isUser(), usersController.get)
+router.put('/:id', secure.isUser(), secure.deleteRoleParam, usersController.edit)
+router.delete('/:id', secure.isUser(), usersController.delete);
+
+module.exports = router;
