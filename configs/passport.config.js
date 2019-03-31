@@ -26,7 +26,11 @@ passport.use('auth-local', new LocalStrategy({
           if (!match) {
             next(null, false, 'Invalid email or password')
           } else {
-            next(null, user)
+            if (user.confirmed) {
+              next(null, user)
+            } else {
+              next(null, false, 'Invalid email or password')
+            }
           }
         })
       }

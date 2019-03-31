@@ -2,7 +2,7 @@ const createError = require('http-errors');
 const constants = require('../constants');
 
 module.exports.isAuthenticated = (req, res, next) => {
-  if (req.isAuthenticated()) next();
+  if (req.isAuthenticated() && req.user.confirmed) next();
   else throw createError(403);
 }
 

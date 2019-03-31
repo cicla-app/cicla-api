@@ -18,6 +18,20 @@ const userSchema = new mongoose.Schema({
     required: 'password is required', 
     validate: passwordPattern
   },
+  alias: {
+    type: String
+  },
+  confirmed: {
+    type: Boolean,
+    default: false
+  },
+  confirmToken: {
+    type: String
+  },
+  onboarding: {
+    type: Boolean,
+    default: false
+  },
   role: {
     type: String,
     enum: Object.values(constants.roles),
@@ -46,6 +60,7 @@ const userSchema = new mongoose.Schema({
       delete ret._id;
       delete ret.__v;
       delete ret.password;
+      delete ret.confirmToken;
       return ret;
     }
   }
@@ -53,6 +68,10 @@ const userSchema = new mongoose.Schema({
 
 userSchema.pre('save', function(next) {
   const user = this;
+
+  if (user.isNew) {
+    this.confirmToken = Math.random().toString(36).substr(2) + Math.random().toString(36).substr(2) + Math.random().toString(36).substr(2) + Math.random().toString(36).substr(2);
+  }
 
   if (!user.isModified('password')) {
     next();
