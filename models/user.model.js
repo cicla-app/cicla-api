@@ -39,13 +39,13 @@ const userSchema = new mongoose.Schema({
   },
   periodDays: {
     type: Number,
-    min: 0,
-    max: 60
+    min: 1,
+    max: 12
   },
   cycleDays: {
     type: Number,
-    min: 20,
-    max: 60
+    min: 10,
+    max: 90
   },
   contraceptives: {
     type: Boolean,

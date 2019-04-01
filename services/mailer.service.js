@@ -20,7 +20,7 @@ module.exports.sendConfirmEmail = (to, token) => {
           <h3>Te damos la bienvenida a Cicla</h3><br/>
           <p>Muchas gracias por registrarte en CICLA</p><br/>
           <p>Para poder finalizar el registro pulsa en el siguiente botón</p><br/>
-          <button href="${url}">CONFIRMAR CUENTA</button></p><br/> 
+          <a href="${url}">CONFIRMAR CUENTA</a></p><br/> 
           <p>Puedes confirmar el registro hasta 24 horas después de haber recibido este correo electrónico, pasado ese tiempo dejará de ser válido<p>`
   };
 
@@ -30,5 +30,5 @@ module.exports.sendConfirmEmail = (to, token) => {
     } else {
       console.log(`confirmation email sent to ${to}`);
     }
-});
+  });
 }
