@@ -51,7 +51,8 @@ periodSchema.pre('save', function (next) {
   }
 
   next();
-});
+}
+);
 
 const Period = mongoose.model('Period', periodSchema);
 

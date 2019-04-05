@@ -37,7 +37,6 @@ app.use('/users', userRoutes);
 app.use('/users/:userId/periods', secure.isUser('userId'), periodRoutes);
 app.use('/', authRoutes);
 
-
 app.use((req, res, next) => {
   res.locals.session = req.user;
   next();

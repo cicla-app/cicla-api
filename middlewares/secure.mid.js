@@ -14,6 +14,8 @@ module.exports.checkRole = (role) => {
 }
 
 module.exports.isUser = (idKey = 'id') => (req, res, next) => {
+  console.log('USER', req.user)
+  console.log('PARAMS', req.params)
   if (req.isAuthenticated() && req.user._id.toString() === req.params[idKey]) next();
   else throw createError(401);
 }
@@ -22,4 +24,3 @@ module.exports.deleteRoleParam = (req, res, next) => {
   delete req.body.role;
   next()
 }
-

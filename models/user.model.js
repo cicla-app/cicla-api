@@ -45,7 +45,7 @@ const userSchema = new mongoose.Schema({
   cycleDays: {
     type: Number,
     min: 10,
-    max: 90
+    max: 60
   },
   contraceptives: {
     type: Boolean,
