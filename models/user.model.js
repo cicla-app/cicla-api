@@ -18,19 +18,15 @@ const userSchema = new mongoose.Schema({
     required: 'password is required', 
     validate: passwordPattern
   },
-  alias: {
-    type: String
-  },
+  alias: String,
   confirmed: {
     type: Boolean,
     default: false
   },
-  confirmToken: {
-    type: String
-  },
-  onboarding: {
-    type: Boolean,
-    default: false
+  confirmToken: String,
+  colaborator: {
+    type: String,
+    validate: emailPattern
   },
   role: {
     type: String,
@@ -40,12 +36,14 @@ const userSchema = new mongoose.Schema({
   periodDays: {
     type: Number,
     min: 1,
-    max: 12
+    max: 12,
+    default: 5
   },
   cycleDays: {
     type: Number,
     min: 10,
-    max: 60
+    max: 60,
+    default: 31
   },
   contraceptives: {
     type: Boolean,

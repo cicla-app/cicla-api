@@ -29,5 +29,5 @@ const nodemailer = require('nodemailer');
     } else {
       console.log(`confirmation email sent to ${to}`);
     }
-});
+  });
 } 

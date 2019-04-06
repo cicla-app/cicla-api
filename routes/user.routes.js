@@ -18,5 +18,4 @@ router.delete('/:id', usersController.delete);
 // router.put('/:id', secure.isUser(), secure.deleteRoleParam, usersController.edit)
 // router.delete('/:id', secure.isUser(), usersController.delete);
 
-
 module.exports = router;

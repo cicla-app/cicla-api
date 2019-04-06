@@ -8,12 +8,12 @@ module.exports.list = (req, res, next) => {
 }
 
 module.exports.create = (req, res, next) => {
-  const period = new Period({
-    ...req.body,
-    user: req.params.userId
-  });
-
-  period.save()
+  new Period({
+    startPeriod: req.body.startPeriod,
+    user: req.body.id
+  })
+    .calculate(req.user)
+    .save()
     .then((period) => res.status(201).json(period))
     .catch(next)
 }

@@ -1,18 +1,31 @@
 const mongoose = require ('mongoose');
+const moment = require('moment');
 const constants = require('../constants');
 const User = require('../models/user.model');
 
 const periodSchema = new mongoose.Schema( {
   startPeriod: {
     type: Date,
-    required: 'startPeriod is required'
+    //required: true
   },
-  endPeriod: {
-    type: Date
-  },
+  endPeriod: Date,
+  endCycle: Date,
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
+  },
+  stages: {
+    follicular: {
+      primary: Date,
+      secondary: Date,
+      latest: Date
+    },
+    ovulation: Date,
+    lutea: {
+      primary: Date,
+      secondary: Date,
+      latest: Date
+    }
   }
 },{
   timestamps: true,
@@ -27,21 +40,29 @@ const periodSchema = new mongoose.Schema( {
   }
 })
 
-periodSchema.virtual('startFollicularPrimaryStage').get(function () {
-  return this.startPeriod
-});
+periodSchema.methods.calculate = function(user = {}) {
+  const period = this;
+  period.endPeriod = moment(period.startPeriod).add('days', (user.periodDays) || 5);
+  period.endCycle = moment(period.startPeriod).add('days', (user.cycleDays || 31));
+  
+  const ovulation = moment(period.endCycle).subtract('days', (Math.round(user.cycleDays / 2)) || 15)
+  
+  period.stages = {
+    ovulation: ovulation,
+    follicular: {
+      primary: period.endPeriod,
+      secondary: moment(period.endPeriod).add('days', 2),
+      latest: moment(ovulation).subtract('days', 1)
+    },
+    lutea: {
+      primary: moment(ovulation).add('days', 5),
+      secondary: moment(ovulation).add('days', 8),
+      latest: period.endCycle
+    }
+  }
+  return period;
+}
 
-periodSchema.virtual('endFollicularPrimaryStage').get(function () {
-  return this.endPeriod
-});
-
-periodSchema.virtual('startCycle').get(function () {
-  return this.startPeriod
-});
-
-periodSchema.virtual('endCycle').get(async function () {
-  return "TODO"
-});
 
 periodSchema.pre('save', function (next) {
   if (this.endPeriod === undefined) {
@@ -49,7 +70,6 @@ periodSchema.pre('save', function (next) {
     endPeriod.setDate(this.startPeriod.getDate() + 5);
     this.endPeriod = endPeriod;
   }
-
   next();
 }
 );

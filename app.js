@@ -1,4 +1,5 @@
 require('dotenv').config();
+const cors = require('./configs/cors.config');
 
 const createError = require('http-errors');
 const express = require('express');
@@ -19,7 +20,6 @@ require('./configs/session.config');
 require('./configs/passport.config');
 
 const session = require('./configs/session.config');
-const cors = require('./configs/cors.config');
 
 const app = express();
 
@@ -34,7 +34,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/users', userRoutes);
-app.use('/users/:userId/periods', secure.isUser('userId'), periodRoutes);
+app.use('/periods/:userId', 
+// secure.isUser('userId'), 
+periodRoutes);
 app.use('/', authRoutes);
 
 app.use((req, res, next) => {

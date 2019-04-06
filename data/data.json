@@ -1,0 +1,26 @@
+[{
+  "title": "Entrenamiento",
+  "resume": "En esta Entrenamientos de fuerza y potencia y Máxima intensidad y carga.fase tu fuerza puede llegar a aumentar un 11% Entre la regla y la ovulación es donde tienes que concentrar el trabajo de fuerza.",
+  "description": "Entrenamientos de fuerza y potencia y Máxima intensidad y carga.",
+  "category": "Sport",
+  "id": 1
+},
+{
+  "title": "Alimentación",
+  "description": "Alimentación",
+  "category": "Food",
+  "id": 2
+},
+{
+  "title": "Ánimo",
+  "description": "Ánimo",
+  "category": "Health",
+  "id": 3
+},
+{
+  "title": "Sexualidad",
+  "description": "Sexualidad",
+  "category": "Sex",
+  "id": 4
+}
+]

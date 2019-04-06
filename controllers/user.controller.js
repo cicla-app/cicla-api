@@ -58,8 +58,6 @@ module.exports.get = (req, res, next) => {
 }
 
 module.exports.edit = (req, res, next) => {
-  console.log('PARAMS', req.params)
-  console.log('BODY', req.body)
   User.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .then(user => {
       if (!user) {
@@ -69,9 +67,7 @@ module.exports.edit = (req, res, next) => {
           startPeriod: req.body.startPeriod,
           user: req.params.id
          }
-        console.log(data)
         const period = new Period(data)
-        console.log('PERIOD', period)
         period.save()
         .then(period => res.json(period));
       }
