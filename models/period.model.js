@@ -6,7 +6,7 @@ const User = require('../models/user.model');
 const periodSchema = new mongoose.Schema( {
   startPeriod: {
     type: Date,
-    //required: true
+    required: true
   },
   endPeriod: Date,
   endCycle: Date,
@@ -42,8 +42,9 @@ const periodSchema = new mongoose.Schema( {
 
 periodSchema.methods.calculate = function(user = {}) {
   const period = this;
-  period.endPeriod = moment(period.startPeriod).add('days', (user.periodDays) || 5);
-  period.endCycle = moment(period.startPeriod).add('days', (user.cycleDays || 31));
+
+  period.endPeriod = moment(period.startPeriod).add('days', (user.periodDays)  || 5);
+  period.endCycle = moment(period.startPeriod).add('days', (user.cycleDays) || 31);
   
   const ovulation = moment(period.endCycle).subtract('days', (Math.round(user.cycleDays / 2)) || 15)
   
@@ -62,17 +63,6 @@ periodSchema.methods.calculate = function(user = {}) {
   }
   return period;
 }
-
-
-periodSchema.pre('save', function (next) {
-  if (this.endPeriod === undefined) {
-    const endPeriod = new Date(this.startPeriod);
-    endPeriod.setDate(this.startPeriod.getDate() + 5);
-    this.endPeriod = endPeriod;
-  }
-  next();
-}
-);
 
 const Period = mongoose.model('Period', periodSchema);
 
