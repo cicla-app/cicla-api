@@ -28,7 +28,6 @@ module.exports.create = (req, res, next) => {
 module.exports.delete = (req, res, next) => {
   Period.remove({ user: req.user.id })
       .then((periods) => {
-        console.log(periods)
         return res.status(204).json()
       })
       .catch(next)
