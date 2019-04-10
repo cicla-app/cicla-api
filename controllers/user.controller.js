@@ -35,15 +35,19 @@ module.exports.confirm = (req, res, next) => {
         return user.save()
       }
     })
-    .then(user => res.redirect('http://localhost:3000/onboarding'))
+    .then(user => res.redirect('http://localhost:3000/login'))
     .catch(next)
 }
 
 module.exports.delete = (req, res, next) => {
   User.findByIdAndDelete(req.params.id)
-    .then(() => res.status(204).json())
-    .catch(next)
-}
+    .then(() => {
+      Period.remove({ user: req.user.id })
+      .then(() => res.status(204).json())
+      .catch(next)
+
+    })
+};
 
 module.exports.get = (req, res, next) => {
   User.findById(req.params.id)

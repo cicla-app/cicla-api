@@ -10,18 +10,28 @@ module.exports.list = (req, res, next) => {
 module.exports.create = (req, res, next) => {
   new Period({
     startPeriod: req.body.startPeriod,
-    user: req.body.id
+    ...req.body,
+    user: req.user.id
   })
     .calculate(req.user)
     .save()
-    .then((period) => res.status(201).json(period))
+    .then((period) =>  res.status(201).json(period))
     .catch(next)
 }
 
+// module.exports.delete = (req, res, next) => {
+//   Period.findByIdAndDelete(req.params.id)
+//     .then(() => res.status(204).json())
+//     .catch(next)
+// }
+
 module.exports.delete = (req, res, next) => {
-  Period.findByIdAndDelete(req.params.id)
-    .then(() => res.status(204).json())
-    .catch(next)
+  Period.remove({ user: req.user.id })
+      .then((periods) => {
+        console.log(periods)
+        return res.status(204).json()
+      })
+      .catch(next)
 }
 
 module.exports.get = (req, res, next) => {

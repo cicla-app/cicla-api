@@ -32,12 +32,15 @@ app.use(cors);
 app.use(session);
 app.use(passport.initialize());
 app.use(passport.session());
+app.use((req, res, next) => {
+  console.log('user', req.user)
+  next()
+})
 
-app.use('/users', userRoutes);
-app.use('/periods/:userId', 
-// secure.isUser('userId'), 
-periodRoutes);
 app.use('/', authRoutes);
+app.use('/users', userRoutes);
+app.use('/periods/:userId', secure.isUser('userId'), 
+periodRoutes);
 
 app.use((req, res, next) => {
   res.locals.session = req.user;

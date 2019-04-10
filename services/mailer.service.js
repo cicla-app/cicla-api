@@ -14,7 +14,7 @@ const nodemailer = require('nodemailer');
    const mailOptions = {
     from: process.env.MAIL_USER,
     to: to,
-    subject: 'Confirma tu cuenta',
+    subject: 'Confirma tu cuenta Cicla',
     text: 'Contenido del email',
     html: `<h2>Hola</h2>
           <h3>Te damos la bienvenida a Cicla</h3>
