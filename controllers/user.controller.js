@@ -19,7 +19,7 @@ module.exports.create = (req, res, next) => {
 
   user.save()
     .then((user) => {
-      mailer.sendConfirmEmail(user.email, user.confirmToken);
+      mailer.sendConfirmEmail(user.email, user.confirmToken, user.alias);
       res.status(201).json(user)
     })
     .catch(next)
