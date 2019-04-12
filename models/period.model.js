@@ -6,7 +6,7 @@ const User = require('../models/user.model');
 const periodSchema = new mongoose.Schema( {
   startPeriod: {
     type: Date,
-    required: true
+    //required: true
   },
   endPeriod: Date,
   endCycle: Date,

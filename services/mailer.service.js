@@ -18,7 +18,7 @@ const nodemailer = require('nodemailer');
     text: 'Contenido del email',
     html: `<h2>Hola</h2>
           <h3>Te damos la bienvenida a Cicla</h3>
-          <p>Muchas gracias por registrarte en CICLA</p>
+          <p>Muchas gracias por registrarte</p>
           <p>Para poder finalizar el registro pulsa en el siguiente botón</p>
           <a href="${url}">CONFIRMAR CUENTA</a></p>`
   };
